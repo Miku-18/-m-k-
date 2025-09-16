@@ -27,22 +27,6 @@ return res.data
 console.log(`Error : ${e}`)
 }}
 
-//creador y otros
-global.creador = 'Wa.me/50488198573'
-global.ofcbot = `${conn.user.jid.split('@')[0]}`
-global.asistencia = 'Wa.me/50488198573'
-global.namechannel = '𝑨𝒔𝒕𝒓𝒐-𝑩𝒐𝒕 - 𝒖𝒑𝒅𝒂𝒕𝒆𝒔☆'
-global.namechannel2 = '𝑨𝒔𝒕𝒓𝒐-𝑩𝒐𝒕 - 𝒂𝒗𝒊𝒔𝒐𝒔☆'
-global.namegrupo = '✦ 𝐀𝐒𝐓𝐑𝐎 - 𝐁𝐎𝐓 ☆'
-global.namecomu = '✭𝐀𝐒𝐓𝐑𝐎 𝐂𝐨𝐦𝐮𝐧𝐢𝐭𝐲 ✪'
-global.listo = '⚡ *Aquí tienes ❛‿˂̵✧*'
-global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://files.catbox.moe/56el7x.jpg')
-
-//Ids channel
-global.canalIdM = ["120363365444927738@newsletter", "120363365444927738@newsletter"]
-global.canalNombreM = ["☆ 𝑨𝒔𝒕𝒓𝒐 - 𝑩𝒐𝒕 𝑴𝑫 • 𝒖𝒑𝒅𝒂𝒕𝒆𝒔 ☆", "☆ 𝑨𝒔𝒕𝒓𝒐 - 𝑩𝒐𝒕 𝑴𝑫 • 𝒂𝒗𝒊𝒔𝒐𝒔 ☆"]
-global.channelRD = await getRandomChannel()
-
 //fechas
 global.d = new Date(new Date + 3600000)
 global.locale = 'es'
@@ -67,19 +51,6 @@ global.emoji5 = '☾'
 global.emoji6 = '✰'
 global.emojis = [emoji, emoji2, emoji3, emoji4].getRandom()
 
-//mensaje en espera
-global.wait = '✪ Espera un momento, soy lento...';
-global.waitt = '★ Espera un momento, soy lento...';
-global.waittt = '✭ Espera un momento, soy lento...';
-global.waitttt = '✯ Espera un momento, soy lento...';
-
-//Enlaces
-var canal = 'https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'  
-let canal2 = 'https://whatsapp.com/channel/0029VayQwPsFnSzESZJ9Us3z'
-var git = 'https://github.com/deylinqff'
-var github = 'https://github.com/deylinqff/astro-bot' 
-let correo = 'deylibaquedano801@gmail.com'
-
 global.redes = [canal, canal2, git, github, correo].getRandom()
 
 //Imagen
@@ -103,19 +74,11 @@ var more = String.fromCharCode(8206)
 global.readMore = more.repeat(850)
 
 global.packsticker = `┏━──────━◆◆━──────━┓\n✰ Usuario: ${nombre}\n⚔✰ Bot: ${botname}\n✰ Fecha: ${fecha}\n✰ Hora: ${tiempo}\n┗━──────━◆◆━──────━┛`;
-global.packsticker2 = `\n┏━──────━◆◆━──────━┓\n👑 Desarrollador: ${dev}\n┗━──────━◆◆━──────━┛`;
+global.packsticker2 = `\n┏━──────━◆◆━──────━┓\n Desarrollador: ${dev}\n┗━──────━◆◆━──────━┛`;
 
 //Fakes
 global.fkontak = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: `6285600793871-1614953337@g.us` } : {}) }, message: { 'contactMessage': { 'displayName': `${nombre}`, 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${nombre},;;;\nFN:${nombre},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`, 'jpegThumbnail': null, thumbnail: null,sendEphemeral: true}}}
 
-global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: channelRD.id, newsletterName: channelRD.name, serverMessageId: -1 }
-}}, { quoted: m }
-
-global.icono = [
-'https://tinyurl.com/285a5ejf',
-].getRandom()
-
-global.rcanal = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: channelRD.id, serverMessageId: 100, newsletterName: channelRD.name, }, externalAdReply: { showAdAttribution: true, title: packname, body: dev, mediaUrl: null, description: null, previewType: "PHOTO", thumbnailUrl: icono, sourceUrl: redes, mediaType: 1, renderLargerThumbnail: false }, }, }}
 
 export default handler
 
