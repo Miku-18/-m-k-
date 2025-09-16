@@ -17,17 +17,8 @@ global.confirmCode = ''
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.owner = [
-  [ '50488198573', 'Deylin', true ],
-  [ '51921826291', 'maycol', true ],
-  [ '639104096580', 'José', true ],
-  [ '5216633900512', 'BrayanOFC',true ],
-// ABRAN PASO PARA LA MERA VRG
-  [ '584146277368', 'Barboza',true],
-  ['59169739411'],
-  [ '50493732693', 'adonay',true],
-  [ '5216671548329', 'Legna', true], 
-  [ '50557333744', 'JonathanG', true],
-]; // <-- Corchete de cierre y coma añadidos
+  ['']
+]; // <-- si quiere agregar más hágalo así ['numero'] si agrega más pongo una ","
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.mods = ['50488198573']
