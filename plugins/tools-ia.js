@@ -1,54 +1,41 @@
-import { exec } from "child_process";
+import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text }) => {
-  if (!text) return conn.reply(m.chat, "⚠️ Por favor, ingresa un mensaje para enviar a Gemini.", m);
-
-  await m.react("⏳");
+const handler = async (m, { conn, text, usedPrefix, command }) => {
+  if (!text) {
+    return conn.reply(m.chat, `⚡ Ingrese una petición para que Mode IA la responda.`, m, fake)
+  }
 
   try {
-    let respuesta = await chat(text);
+    await m.react('🌟')
+    conn.sendPresenceUpdate('composing', m.chat)
 
-    let txt = `*乂 G E M I N I - C H A T 乂*\n\n`;
-    txt += `*» Pregunta:* ${text}\n`;
-    txt += `*» Respuesta:* ${respuesta}\n\n`;
-    txt += `> *${dev}*`;
+    const id = m.sender || 'anon'
+    const apiUrl = `https://g-mini-ia.vercel.app/api/mode-ia?prompt=${encodeURIComponent(text)}&id=${encodeURIComponent(id)}`
 
-    await conn.reply(m.chat, txt, m);
-    await m.react("✅");
-  } catch (error) {
-    await m.react("❌");
-    conn.reply(m.chat, "⚠️ Error al procesar la solicitud.", m);
+    const res = await fetch(apiUrl)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+
+    const json = await res.json()
+    const reply = json?.response?.trim()
+
+    if (!reply) throw new Error('Sin respuesta de Mode IA')
+
+    await conn.reply(m.chat, reply, m, fake)
+  } catch (err) {
+    console.error('[Mode-IA Error]', err)
+    await m.react('⚡️')
+    await conn.reply(m.chat, `⚡ Mode IA no puede responder a esa pregunta.`, m, fake)
   }
-};
-
-handler.help = ["gemini"];
-handler.tags = ["ai"];
-handler.command = ["gemini", "chatgemini"];
-
-export default handler;
-
-async function chat(prompt) {
-  return new Promise((resolve, reject) => {
-    const command = `curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCYWNbM2ZgdDSp9NlFxTgp0Wtwaaw7dyRc" \
-      -H "Content-Type: application/json" \
-      -X POST \
-      -d '{
-        "contents": [{
-          "parts": [{"text": "${prompt}"}]
-        }]
-      }'`;
-
-    exec(command, (error, stdout, stderr) => {
-      if (error) return reject(`Error: ${error.message}`);
-      if (stderr) return reject(`Stderr: ${stderr}`);
-
-      try {
-        const response = JSON.parse(stdout);
-        const reply = response.candidates?.[0]?.content?.parts?.[0]?.text || "No response from AI.";
-        resolve(reply);
-      } catch (err) {
-        reject(`JSON Parse Error: ${err.message}`);
-      }
-    });
-  });
 }
+
+handler.help = ['ia *<texto>*']
+handler.tags = ['ia']
+handler.command = ['ia']
+handler.before = async (m, { conn }) => {
+    let text = m.text?.toLowerCase()?.trim();
+    if (text === 'is' || text === '@ia') {
+        return handler(m, { conn });
+    }
+}
+
+export default handler
