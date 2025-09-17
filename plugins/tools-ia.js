@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 const handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text) {
-    return conn.reply(m.chat, `⚡ Ingrese una petición para que Mode IA la responda.`, m, fake)
+    return conn.reply(m.chat, `⚡ Ingrese una petición para que Mode IA la responda.`, m)
   }
 
   try {
@@ -20,11 +20,11 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 
     if (!reply) throw new Error('Sin respuesta de Mode IA')
 
-    await conn.reply(m.chat, reply, m, fake)
+    await conn.reply(m.chat, reply, m)
   } catch (err) {
     console.error('[Mode-IA Error]', err)
     await m.react('⚡️')
-    await conn.reply(m.chat, `⚡ Mode IA no puede responder a esa pregunta.`, m, fake)
+    await conn.reply(m.chat, `⚡ Mode IA no puede responder a esa pregunta.`, m)
   }
 }
 
