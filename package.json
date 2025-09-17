@@ -1,5 +1,5 @@
 {
-"name": "ASTRO-BOT",
+"name": "miku",
 "version": "2.2.0",
 "description": "Super WhatsApp Bot Multi Device",
 "main": "index.js",
@@ -20,7 +20,7 @@
 },
 "homepage": "https://github.com/deylinqff/astro-bot",
 "author": {
-"name": "DEYLIN"
+"name": "Dulce"
 },
 "repository": {
 "type": "git",
