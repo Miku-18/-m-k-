@@ -68,13 +68,13 @@ var ase = new Date(); var hour = ase.getHours(); switch(hour){ case 0: hour = 'L
 global.saludo = hour;
 
 const imgs = [
-'',
-'',
-'',
-'',
-'',
-'',
-''
+'https://i.postimg.cc/25213sv1/1758075000495.jpg',
+'https://i.postimg.cc/Dz2WvvWV/1758074994696.jpg',
+'https://i.postimg.cc/zGYbQS8G/1758074989822.jpg',
+'https://i.postimg.cc/2jJBQNtv/1758074975761.jpg',
+'https://i.postimg.cc/T1ZLfnbQ/1758074968603.jpg',
+'https://i.postimg.cc/LX5nPxBN/1758075008638.jpg',
+'https://i.postimg.cc/W3ytw05j/1758075013456.jpg'
 ]
 
 
