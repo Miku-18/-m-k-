@@ -8,18 +8,21 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let data = await res.json()
 
     let txt = `
-𝗧𝗜𝗞-𝗧𝗢𝗞 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦
+    _｡*ﾟ•🎀°• 🎀 •°•ﾟ*｡_
+    TikTok Downloads ✨
+    ｡*ﾟ•°•ﾟ*｡_
 
-*𝘮𝘦𝘯𝘶 𝘥𝘦 𝘰𝘱𝘤𝘪𝘰𝘯𝘦𝘴*
+    ღ─── 𝓶𝓮𝓷ú 𝓭𝓮 𝓸𝓹𝓬𝓲𝓸𝓷𝓮𝓼 ───ღ
 
-🗣️ Title » ${data.title || "TikTok Video"}  
+    💖 Title » ${data.title || "TikTok Video"}  
+    
+    *♡ Responde con el número para descargar: ♡*
 
-*➔ Responde con el número para descargar:*
-
-① ⇶Vídeo sin marca de agua 📽️  
-② ⇶Sólo audio 🎵  
-③ ⇶Nota de vídeo 🕳️
+    ˗ˏˋ ① ´ˎ˗ °•*⁀➷ Video sin marca de agua 📽️  
+    ˗ˏˋ ② ´ˎ˗ °•*⁀➷ Solo audio 🎵  
+    ˗ˏˋ ③ ´ˎ˗ °•*⁀➷ Nota de video 🕳️
 `.trim()
+
 
     let sentMsg = await conn.sendMessage(m.chat, {
       image: { url: data.thumbnail },
