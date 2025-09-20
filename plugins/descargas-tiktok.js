@@ -18,9 +18,9 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     
     *♡ Responde con el número para descargar: ♡*
 
-    ˗ˏˋ ① ´ˎ˗ °•*⁀➷ Video sin marca de agua 📽️  
-    ˗ˏˋ ② ´ˎ˗ °•*⁀➷ Solo audio 🎵  
-    ˗ˏˋ ③ ´ˎ˗ °•*⁀➷ Nota de video 🕳️
+    ˗ˏˋ①´ˎ˗ °•*⁀➷ Video sin marca de agua 📽️  
+    ˗ˏˋ②´ˎ˗ °•*⁀➷ Solo audio 🎵  
+    ˗ˏˋ③´ˎ˗ °•*⁀➷ Nota de video 🕳️
 `.trim()
 
 
