@@ -26,52 +26,48 @@ END:VCARD`
   let usuario = `@${m.sender.split`@`[0]}`
   let pp = await conn.profilePictureUrl(m.chat, 'image').catch(_ => null) || 'https://files.catbox.moe/xr2m6u.jpg'
 
-  // Diseños con estilo Astro-Bot
   let nombre = `
-╔═【 🚀 ASTRO-BOT ALERTA】═╗
-║ *${usuario}* ha reconfigurado el cosmos del grupo.
-║ ✨ Nuevo nombre detectado:
-║   » *<${m.messageStubParameters[0]}>*
-╚═════════════════════╝`
-  
+╭─✧⋱ Nombre Modificado ⋰✧─╮
+│ ✧ ${usuario} ha cambiado el nombre del grupo
+│ ✧ Nuevo nombre:
+│   » ${m.messageStubParameters[0]}
+╰──────────────────╯`
+
   let foto = `
-╔═【🪐ASTRO-BOT OBSERVA】═╗
-║ *${usuario}* ha reprogramado la imagen del universo.
-║ 📸 Nueva imagen aplicada al grupo.
-╚════════════════════╝`
-  
+╭─✧⋱ Imagen Cambiada ⋰✧─╮
+│ ✧ ${usuario} ha actualizado la foto del grupo
+│ ✧ ¡Nuevo estilo aplicado!
+╰──────────────────╯`
+
   let edit = `
-╔═【 💫ASTRO-BOT CONFIG 】═╗
-║ *${usuario}* ha modificado los protocolos.
-║ Configuración actual: ${m.messageStubParameters[0] == 'on' ? 'Solo administradores' : 'Todos'}
-╚═════════════════════╝`
-  
+╭─✧⋱ Configuración Editada ⋰✧─╮
+│ ✧ ${usuario} ha modificado los ajustes
+│ ✧ Estado: ${m.messageStubParameters[0] == 'on' ? 'Solo admins' : 'Todos'}
+╰──────────────────╯`
+
   let newlink = `
-╔【🔗ASTRO-BOT LINK RESET】╗
-║ El portal ha sido reiniciado por:
-║   » *${usuario}*
-╚═════════════════════╝`
-  
+╭─✧⋱ Link Reiniciado ⋰✧─╮
+│ ✧ Portal reiniciado por:
+│   » ${usuario}
+╰──────────────────╯`
+
   let status = `
-╔═【🔓 ASTRO-BOT STATUS 】═╗
-║ El grupo se encuentra ahora ${m.messageStubParameters[0] == 'on' ? '*cerrado 🔒*' : '*abierto 🔓*'}.
-║ Acción realizada por: *${usuario}*
-║ Configuración: ${m.messageStubParameters[0] == 'on' ? 'Solo administradores' : 'Todos'}
-╚═════════════════════╝`
-  
+╭─✧⋱ Estado del Grupo ⋰✧─╮
+│ ✧ ${usuario} ha ${m.messageStubParameters[0] == 'on' ? 'cerrado 🔒' : 'abierto 🔓'} el grupo
+│ ✧ Configuración: ${m.messageStubParameters[0] == 'on' ? 'Solo admins' : 'Todos'}
+╰──────────────────╯`
+
   let admingp = `
-╔═【 👑 ASTRO-BOT ADMIN 】═╗
-║ *@${m.messageStubParameters[0].split`@`[0]}* ha sido ascendido al
-║Olimpo de los administradores.
-║ Operación ejecutada por: *${usuario}*
-╚═════════════════════╝`
-  
+╭─✧⋱ Admin Ascendido ⋰✧─╮
+│ ✧ ${m.messageStubParameters[0].split`@`[0]} ahora es admin
+│ ✧ Acción realizada por: ${usuario}
+╰──────────────────╯`
+
   let noadmingp = `
-╔═【ASTRO-BOT REMOCIÓN】═╗
-║ *@${m.messageStubParameters[0].split`@`[0]}* ha descendido
-║de su trono de administrador.
-║ Acción realizada por: *${usuario}*
-╚═════════════════════╝`
+╭─✧⋱ Admin Removido ⋰✧─╮
+│ ✧ ${m.messageStubParameters[0].split`@`[0]} ya no es admin
+│ ✧ Acción realizada por: ${usuario}
+╰──────────────────╯`
 
   if (chat.detect && m.messageStubType == 21) {
     await conn.sendMessage(m.chat, { text: nombre, mentions: [m.sender] }, { quoted: fkontak })
@@ -88,8 +84,5 @@ END:VCARD`
     return;
   } if (chat.detect && m.messageStubType == 30) {
     await conn.sendMessage(m.chat, { text: noadmingp, mentions: [`${m.sender}`, `${m.messageStubParameters[0]}`] }, { quoted: fkontak })
-  } else {
-    // Opcional: consola para depuración
-    // console.log({ messageStubType: m.messageStubType, messageStubParameters: m.messageStubParameters, type: WAMessageStubType[m.messageStubType] })
   }
 }
