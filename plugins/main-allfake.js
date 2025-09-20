@@ -36,22 +36,21 @@ global.mes = d.toLocaleDateString('es', {month: 'long'})
 global.año = d.toLocaleDateString('es', {year: 'numeric'})
 global.tiempo = d.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true})
 
-//Reacciones De Comandos.!
-global.rwait = '🕒'
-global.done = '✅'
-global.error = '✖️'
-global.msm = '⚠︎'
+global.rwait = '🎤🌀'        
+global.done = '🌸💙'         
+global.error = '✖️🎀'        
+global.msm = '⚠️🎶'          
 
-//Emojis determinado de astro Bot
-global.emoji = '✧'
-global.emoji2 = '⌬'
-global.emoji3 = '➤'
-global.emoji4 = '۝'
-global.emoji5 = '☾'
-global.emoji6 = '✰'
-global.emojis = [emoji, emoji2, emoji3, emoji4].getRandom()
+global.emoji = '💙'
+global.emoji2 = '🎀'
+global.emoji3 = '🎶'
+global.emoji4 = '🌸'
+global.emoji5 = '🎤'
+global.emoji6 = '🌀'
+global.emoji7 = '🌟'
+global.emoji8 = '✨'
 
-global.redes = [canal, canal2, git, github, correo].getRandom()
+global.emojis = [emoji, emoji2, emoji3, emoji4, emoji5, emoji6, emoji7, emoji8].getRandom()
 
 //Imagen
 let category = "imagen"
