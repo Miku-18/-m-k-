@@ -8,14 +8,15 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   try {
     let q = m.quoted ? m.quoted : m;
     let mime = (q.msg || q).mimetype || q.mediaType || '';
+
     if (/webp|image|video/g.test(mime)) {
       if (/video/g.test(mime) && (q.msg || q).seconds > 15) {
-        return m.reply(`${emoji2} *¡El video no puede durar más de 15 segundos!...*`, m, fake);
+        return m.reply(`ღ 𝑂𝒉𝓃𝑜~ *¡El video no puede durar más de 15 segundos!* ღ`, m);
       }
       let img = await q.download?.();
 
       if (!img) {
-        return conn.reply(m.chat, `${emoji} *Por favor, envía una imagen o video para hacer un sticker.*`, m, fake);
+        return conn.reply(m.chat, `ღ 𝑂𝒉𝓃𝑜~ *Por favor, envía una imagen o video para crear tu sticker.* ღ`, m);
       }
 
       let out;
@@ -39,7 +40,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       if (isUrl(args[0])) {
         stiker = await sticker(false, args[0], global.packsticker, global.packsticker2);
       } else {
-        return m.reply(`${msm} *El URL es incorrecto...*`, m, fake);
+        return m.reply(`ღ 𝑂𝒉𝓃𝑜~ *El URL es incorrecto!* ღ`, m);
       }
     }
   } catch (e) {
@@ -50,10 +51,10 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       await conn.sendMessage(
         m.chat, 
         { sticker: stiker }, 
-        { quoted: m, rcanal, contextInfo: rcanal }
+        { quoted: m }
       );
     } else {
-      return conn.reply(m.chat, `${emoji} *Por favor, envía una imagen o video para hacer un sticker.*`, m, fake);
+      return conn.reply(m.chat, `ღ 𝑂𝒉𝓃𝑜~ *Por favor, envía una imagen o video para crear tu sticker.* ღ`, m);
     }
   }
 };
