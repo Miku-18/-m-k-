@@ -1,184 +1,76 @@
-import axios from "axios";
-import cheerio from "cheerio";
+import fetch from "node-fetch"
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) {
-    return conn.reply(m.chat, `Usa el formato: ${usedPrefix + command} <enlace de TikTok>`, m);
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+  if (!args[0]) return m.reply(`${emoji} Ingresa un enlace de TikTok.`)
+  try {
+    let res = await fetch(`https://g-mini-ia.vercel.app/api/tiktok?url=${encodeURIComponent(args[0])}`)
+    if (!res.ok) throw await res.text()
+    let data = await res.json()
+
+    let txt = `
+𝗧𝗜𝗞-𝗧𝗢𝗞 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦
+
+*𝘮𝘦𝘯𝘶 𝘥𝘦 𝘰𝘱𝘤𝘪𝘰𝘯𝘦𝘴*
+
+🗣️ Title » ${data.title || "TikTok Video"}  
+
+*➔ Responde con el número para descargar:*
+
+① ⇶Vídeo sin marca de agua 📽️  
+② ⇶Sólo audio 🎵  
+③ ⇶Nota de vídeo 🕳️
+`.trim()
+
+    let sentMsg = await conn.sendMessage(m.chat, {
+      image: { url: data.thumbnail },
+      caption: txt
+    }, { quoted: m })
+
+    conn.tiktokMenu = conn.tiktokMenu || {}
+    conn.tiktokMenu[sentMsg.key.id] = data
+  } catch (e) {
+    console.error(e)
+    m.reply("❌ Error al obtener el video de TikTok.")
   }
+}
+
+handler.help = ['tiktok/tt <URL>'];
+handler.tags = ['descargas'];
+handler.command = ['tiktok', 'tt'];
+
+let before = async (m, { conn }) => {
+  if (!m.quoted || !conn.tiktokMenu) return
+  let msgId = m.quoted.id || m.quoted.key?.id
+  let data = conn.tiktokMenu[msgId]
+  if (!data) return
+
+  let choice = m.text.trim()
+  if (!["1", "2", "3"].includes(choice)) return
 
   try {
-    await m.react('🕒');
-
-    const videoResult = await ttsave.video(text);
-    const { 
-      type, 
-      nickname, 
-      username, 
-      description, 
-      videoInfo, 
-      slides, 
-      audioUrl 
-    } = videoResult;
-
-    let message = `*✔️🍟Downloader tiktok.*
-
-> • *Nombre*: ${nickname || "-"}
-> • *Usuario*: ${username || "-"}
-> • *Descripción*: ${description || "-"}
-`.trim();
-
-    if (type === "slide") {
-      message += "\n> • *Tipo*: Presentación (Imágenes)";
-      await conn.reply(m.chat, message, m);
-
-      for (let slide of slides) {
-        await m.react('✅');
-        await conn.sendFile(m.chat, slide.url, `presentación-${slide.number}.jpg`, "", m);
-      }
-    } 
-    else if (type === "video") {
-      message += "\n> • *Tipo*: Video";
-
-      if (videoInfo.nowm) {
-        await m.react('✅');
-await conn.sendMessage(m.chat, {
-  video: { url: videoInfo.nowm },
-  caption: message,
-  footer: dev,
-  buttons: [
-    {
-      buttonId: `.tiktokmp3 ${text}`,
-      buttonText: {
-        displayText: 'Audio 🎧',
-      },
-    },
-    {
-      buttonId: `.tiktokhd ${text}`,
-      buttonText: {
-        displayText: 'Calidad HD',
-      },
-    },
-  ],
-  viewOnce: true,
-  headerType: 4,
-}, { quoted: m });
-      } else {
-        conn.reply(m.chat, "No se pudo obtener el video sin marca de agua.", m);
-      }
+    switch (choice) {
+      case "1":
+       // await m.reply("⏳ Enviando contenido...")
+        await conn.sendMessage(m.chat, { video: { url: data.video_url }, caption: "🎬 TikTok sin marca de agua" }, { quoted: m })
+        break
+      case "2":
+       // await m.reply("⏳ Enviando contenido...")
+        await conn.sendMessage(m.chat, { audio: { url: data.audio_url || data.video_url }, mimetype: "audio/mpeg", fileName: "tiktok.mp3" }, { quoted: m })
+        break
+      case "3":
+        //await m.reply("⏳ Enviando contenido...")
+        await conn.sendMessage(m.chat, { 
+          video: { url: data.video_url }, 
+          mimetype: "video/mp4", 
+          ptv: true 
+        }, { quoted: m })
+        break
     }
-
-    if (audioUrl) {
-    }
-  } catch (error) {
-    console.error(error);
-    conn.reply(m.chat, `Ocurrió un error al procesar la solicitud. Asegúrate de que el enlace de TikTok sea válido e inténtalo nuevamente.`, m);
+  } catch (e) {
+    console.error(e)
+    m.reply("❌ Error al enviar el archivo.")
   }
-};
+}
 
-handler.help = ["tiktok *<url>*"];
-handler.tags = ["dl"];
-handler.command = ["tiktok"];
-export default handler;
-
-const headers = {
-  authority: "ttsave.app",
-  accept: "application/json, text/plain, */*",
-  origin: "https://ttsave.app",
-  referer: "https://ttsave.app/en",
-  "user-agent": "Postify/1.0.0",
-};
-
-const ttsave = {
-  submit: async function (url, referer) {
-    const headerx = { ...headers, referer };
-    const data = { query: url, language_id: "1" };
-    return axios.post("https://ttsave.app/download", data, { headers: headerx });
-  },
-
-  parse: function ($) {
-    const uniqueId = $("#unique-id").val();
-    const nickname = $("h2.font-extrabold").text();
-    const profilePic = $("img.rounded-full").attr("src");
-    const username = $("a.font-extrabold.text-blue-400").text();
-    const description = $("p.text-gray-600").text();
-
-    const dlink = {
-      nowm: $("a.w-full.text-white.font-bold").first().attr("href"),
-      wm: $("a.w-full.text-white.font-bold").eq(1).attr("href"),
-      audio: $("a[type='audio']").attr("href"),
-      profilePic: $("a[type='profile']").attr("href"),
-      cover: $("a[type='cover']").attr("href"),
-    };
-
-    const stats = {
-      reproducciones: "",
-      meGusta: "",
-      comentarios: "",
-      compartidos: "",
-    };
-
-    $(".flex.flex-row.items-center.justify-center").each((index, element) => {
-      const $element = $(element);
-      const svgPath = $element.find("svg path").attr("d");
-      const value = $element.find("span.text-gray-500").text().trim();
-
-      if (svgPath && svgPath.startsWith("M10 18a8 8 0 100-16")) {
-        stats.reproducciones = value;
-      } else if (svgPath && svgPath.startsWith("M3.172 5.172a4 4 0 015.656")) {
-        stats.meGusta = value || "0";
-      } else if (svgPath && svgPath.startsWith("M18 10c0 3.866-3.582")) {
-        stats.comentarios = value;
-      } else if (svgPath && svgPath.startsWith("M17.593 3.322c1.1.128")) {
-        stats.compartidos = value;
-      }
-    });
-
-    const tituloCancion = $(".flex.flex-row.items-center.justify-center.gap-1.mt-5")
-      .find("span.text-gray-500")
-      .text()
-      .trim();
-
-    const slides = $("a[type='slide']")
-      .map((i, el) => ({
-        number: i + 1,
-        url: $(el).attr("href"),
-      }))
-      .get();
-
-    return {
-      uniqueId,
-      nickname,
-      profilePic,
-      username,
-      description,
-      dlink,
-      stats,
-      tituloCancion,
-      slides,
-    };
-  },
-
-  video: async function (link) {
-    try {
-      const response = await this.submit(link, "https://ttsave.app/en");
-      const $ = cheerio.load(response.data);
-      const result = this.parse($);
-
-      if (result.slides && result.slides.length > 0) {
-        return { type: "slide", ...result };
-      }
-
-      return {
-        type: "video",
-        ...result,
-        videoInfo: {
-          nowm: result.dlink.nowm,
-          wm: result.dlink.wm,
-        },
-      };
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  },
-};
+handler.before = before
+export default handler
