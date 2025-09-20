@@ -62,32 +62,30 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     }));
 
     let menuText = `
-┈ࠢ͜┅ࠦ͜͜╾🌸͜─💖͜─✨͜─🌷͜─💫͜─🌺͜─🌸͜─💖͜╾ࠦ┅ࠡ͜͜┈࠭͜͜
+╭─────✿♡✿─────╮
+│ Hola *@${userId.split('@')[0]}* ❀
+│ Soy *${botname}* 🌸
+╰─────✿♡✿─────╯
 
-Hola *@${userId.split('@')[0]}* 🌸✨
-soy *🌷 ${botname} 💖*
-
-╔═✿❀🌸❀✿═╗
-║ 🌺 *Cliente:* @${userId.split('@')[0]}
-║ 🌺 *Bot:* ${(conn.user.jid == global.conn.user.jid ? 'Principal 💖' : 'Prem Bot 💕')}
-║ 🌺 *Modo:* ${mode}
-║ 🌺 *Usuarios:* ${totalreg}
-║ 🌺 *Tiempo Activo:* ${uptime}
-║ 🌺 *Comandos:* ${totalCommands}
-╚═✿❀🌸❀✿═╝
-
-
-┈ࠢ͜┅ࠦ͜͜╾💖͜─✨͜─🌸͜─🌷͜─💫͜─🌺͜─💖͜╾ࠦ┅ࠡ͜͜┈࠭͜͜
+╭─ ❁ Información ❁ ─╮
+│ ♡ Cliente: @${userId.split('@')[0]}
+│ ♡ Bot: ${(conn.user.jid == global.conn.user.jid ? 'Principal 💖' : 'Sub Bot 💕')}
+│ ♡ Modo: ${mode}
+│ ♡ Usuarios: ${totalreg}
+│ ♡ Activo: ${uptime}
+│ ♡ Comandos: ${totalCommands}
+╰──────────────────╯
 
 ❀ ⋆ Lista de Comandos ⋆ ❀
+
 ${Object.keys(tags).map(tag => {
   const commandsForTag = help.filter(menu => menu.tags.includes(tag));
   if (commandsForTag.length === 0) return ''; 
-  return `┏─❀💖 ${tags[tag]} ${getRandomEmoji()} 💖❀─┓
+  return `╭─ ❁ ${tags[tag]} ❁ ─╮
 ${commandsForTag.map(menu => 
-  menu.help.map(help => `🌸 ${_p}${help} ${menu.limit ? '⭐' : ''} ${menu.premium ? '🪪' : ''}`).join('\n')
+  menu.help.map(help => `│ ♡ ${_p}${help} ${menu.limit ? '★' : ''} ${menu.premium ? '👑' : ''}`).join('\n')
 ).join('\n')}
-┗─❀💖❀💖❀💖❀💖❀─┛`
+╰───────────────╯`
 }).filter(text => text !== '').join('\n')}
 `;
 
@@ -99,14 +97,14 @@ ${commandsForTag.map(menu =>
     ];
     let selectedImage = imageUrls[Math.floor(Math.random() * imageUrls.length)];
 
-    await m.react('🚀');
+    await m.react('💗');
     await conn.sendMessage(m.chat, { 
       image: { url: selectedImage }, 
       caption: menuText.trim(), 
       mentions: [m.sender] 
     }, { quoted: m });
   } catch (e) {
-    conn.reply(m.chat, '❎ Lo sentimos, el menú tiene un error.', m);
+    conn.reply(m.chat, '🥀 Lo sentimos, el menú tiene un error.', m);
     throw e;
   }
 };
@@ -132,7 +130,7 @@ function clockString(ms) {
 }
 
 function getRandomEmoji() {
-  const emojis = ['👑', '🔥', '🌟', '⚡'];
+  const emojis = ['🪷', '🥀', '💗', '💔'];
   return emojis[Math.floor(Math.random() * emojis.length)];
 }
 
