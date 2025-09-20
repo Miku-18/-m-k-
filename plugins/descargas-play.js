@@ -82,14 +82,19 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const { title, thumbnail, timestamp, views, ago, url } = videoInfo;
     const vistas = formatViews(views);
 
-    const infoMessage = `★ 𝑨𝑺𝑻𝑹𝑶-𝑩𝑶𝑻 𝑷𝑳𝑨𝒀 ★
-
-🚀 Archivo Encontrado: 「 ${title} 」 
-🌌 Canal: ${videoInfo.author.name || 'Desconocido'} 
-✨ Vistas: ${vistas} 
-⏱ Duración: ${timestamp}
-📅 Publicado: ${ago}
-🔗 Enlace: ${url}`;
+    const infoMessage = `
+╭─❀⋱⋰❀────────╮
+│ ✧ Archivo Encontrado ✧
+│
+│  〘 ${title} 〙
+│
+│ ✦ Canal: ${videoInfo.author.name || 'Desconocido'}
+│ ✦ Vistas: ${vistas}
+│ ✦ Duración: ${timestamp}
+│ ✦ Publicado: ${ago}
+│ ✦ Enlace: ${url}
+╰─❀⋱⋰❀────────╯
+`.trim()
 
     const thumb = (await conn.getFile(thumbnail))?.data;
 
@@ -109,7 +114,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     };
 
     await conn.reply(m.chat, infoMessage, m, JT);
-    await m.react('🌌');
+    await m.react('🪷');
 
     if (command === 'play' || command === 'yta' || command === 'ytmp3') {
             const api = await (await fetch(`https://api.neoxr.eu/api/youtube?url=${url}&type=audio&quality=128kbps&apikey=GataDios`)).json()
