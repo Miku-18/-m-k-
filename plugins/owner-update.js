@@ -2,12 +2,12 @@ import { execSync } from 'child_process';
 
 let handler = async (m, { conn, args }) => { 
     try { 
-        await conn.reply(m.chat, '⏳ Actualizando el bot, por favor espere...', m);
+        await conn.reply(m.chat, 'ღ 𝑨𝑐𝑡𝑢𝑎𝑙𝑖𝑧𝑎𝑛𝑑𝑜 𝑒𝑙 𝑏𝑜𝑡, 𝑝𝑜𝑟 𝑓𝑎𝑣𝑜𝑟 𝑒𝑠𝑝𝑒𝑟𝑎... ღ', m);
 
         const output = execSync('git pull' + (args.length ? ' ' + args.join(' ') : '')).toString();
         let response = output.includes('Already up to date') 
-            ? '✅ El bot ya está actualizado.' 
-            : `🔄 Se han aplicado actualizaciones:\n\n${output}`;
+            ? 'ღ 𝑬𝑙 𝑏𝑜𝑡 𝑎́ 𝑠𝑢 𝑑𝑎𝑡𝑜 𝑎𝑐𝑡𝑢𝑎𝑙𝑖𝑧𝑎𝑑𝑜. ღ' 
+            : `ღ 𝑆𝑒 𝑎𝑝𝑙𝑖𝑐𝑎𝑟𝑜𝑛 𝑎𝑐𝑡𝑢𝑎𝑙𝑖𝑧𝑎𝑐𝑖𝑜𝑛𝑒𝑠:\n\n${output} ღ`;
 
         await conn.reply(m.chat, response, m);
 
@@ -22,9 +22,9 @@ let handler = async (m, { conn, args }) => {
                 ); 
 
                 if (conflictedFiles.length > 0) { 
-                    const conflictMsg = `⚠️ Conflictos detectados en los siguientes archivos:\n\n` +
+                    const conflictMsg = `ღ 𝑪𝑜𝑛𝑓𝑙𝑖𝑐𝑡𝑜𝑠 𝑒𝑛 𝑙𝑜𝑠 𝑠𝑖𝑔𝑢𝑖𝑒𝑛𝑡𝑒𝑠 𝑎𝑟𝑐ℎ𝑖𝑣𝑜𝑠:\n\n` +
                         conflictedFiles.map(f => '• ' + f.slice(3)).join('\n') +
-                        `\n\n🔹 Para solucionar esto, reinstala el bot o actualiza manualmente.`;
+                        `\n\nღ 𝑷𝑎𝑟𝑎 𝑠𝑜𝑙𝑢𝑐𝑖𝑜𝑛𝑎𝑟, 𝑟𝑒𝑖𝑛𝑠𝑡𝑎𝑙𝑎 𝑒𝑙 𝑏𝑜𝑡 𝑜 𝑎𝑐𝑡𝑢𝑎𝑙𝑖𝑧𝑎 𝑚𝑎𝑛𝑢𝑎𝑙𝑚𝑒𝑛𝑡𝑒. ღ`;
 
                     return await conn.reply(m.chat, conflictMsg, m); 
                 } 
@@ -33,13 +33,13 @@ let handler = async (m, { conn, args }) => {
             console.error(statusError); 
         }
 
-        await conn.reply(m.chat, `❌ Error al actualizar: ${error.message || 'Error desconocido.'}`, m);
+        await conn.reply(m.chat, `ღ 𝑬𝑟𝑟𝑜𝑟 𝑎𝑙 𝑎𝑐𝑡𝑢𝑎𝑙𝑖𝑧𝑎𝑟: ${error.message || '𝑬𝑟𝑟𝑜𝑟 𝑑𝑒𝑠𝑐𝑜𝑛𝑜𝑐𝑖𝑑𝑜.'} ღ`, m);
     } 
 };
 
 handler.help = ['update', 'actualizar'];
-handler.customPrefix = /^(update|actualizar)$/i
-handler.command = new RegExp
+handler.command /^(update|actualizar)$/i
+handler.tags = ['owner']
 handler.rowner = true;
 
 export default handler;
