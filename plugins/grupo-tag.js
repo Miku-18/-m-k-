@@ -1,21 +1,23 @@
-//code traído por Xi_Crew
 import { generateWAMessageFromContent } from '@whiskeysockets/baileys'
 import * as fs from 'fs'
 
 var handler = async (m, { conn, text, participants, isOwner, isAdmin }) => {
 
-  
-  if (!m.quoted && !text) return conn.reply(m.chat, `${emoji} Debes enviar un texto para hacer un tag.`, m)
+  if (!m.quoted && !text) 
+    return conn.reply(m.chat, `
+╭─♡✦ TAG DE GRUPO ✦♡─╮
+│ Debes enviar un texto para hacer un tag.
+╰─────────────────╯
+    `.trim(), m)
 
   try { 
     let users = participants.map(u => conn.decodeJid(u.id))
-    
     let tagText = text ? text : (m.quoted && m.quoted.text ? m.quoted.text : "*Hola!!*")
-    
-    let newText = `${tagText}\n\n> ASTRO-BOT TAG`
-    
+    let newText = `✧ ${tagText}\n\n> TAG DE GRUPO ✧`
+
     let q = m.quoted ? m.quoted : m || m.text || m.sender
     let c = m.quoted ? await m.getQuotedObj() : m.msg || m.text || m.sender
+
     let msg = conn.cMod(
       m.chat, 
       generateWAMessageFromContent(
@@ -27,12 +29,10 @@ var handler = async (m, { conn, text, participants, isOwner, isAdmin }) => {
       conn.user.jid, 
       { mentions: users }
     )
+
     await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
 
   } catch {  
-    /**
-    [ By @NeKosmic || https://github.com/NeKosmic/ ]
-    **/  
     let users = participants.map(u => conn.decodeJid(u.id))
     let quoted = m.quoted ? m.quoted : m
     let mime = (quoted.msg || quoted).mimetype || ''
@@ -40,9 +40,8 @@ var handler = async (m, { conn, text, participants, isOwner, isAdmin }) => {
     let more = String.fromCharCode(8206)
     let masss = more.repeat(850)
     let tagText = text ? text : (m.quoted && m.quoted.text ? m.quoted.text : "*Hola!!*")
-    
-    let htextos = `${tagText}\n\n> ASTRO-BOT TAG`
-    
+    let htextos = `✧ ${tagText}\n\n> TAG DE GRUPO ✧`
+
     if ((isMedia && quoted.mtype === 'imageMessage') && htextos) {
       var mediax = await quoted.download?.()
       conn.sendMessage(m.chat, { image: mediax, mentions: users, caption: htextos }, { quoted: null })
@@ -64,11 +63,11 @@ var handler = async (m, { conn, text, participants, isOwner, isAdmin }) => {
     }
   }
 }
+
 handler.help = ['hidetag']
 handler.tags = ['grupo']
 handler.command = ['hidetag', 'notificar', 'notify', 'tag']
 handler.group = true
 handler.admin = true
-
 
 export default handler
