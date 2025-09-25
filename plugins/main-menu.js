@@ -93,7 +93,7 @@ ${commandsForTag.map(menu =>
 
     await m.react('💗');
     await conn.sendMessage(m.chat, { 
-      image: { url: global.img }, 
+        image: { url: global.img },
       caption: menuText.trim(), 
       mentions: [m.sender] 
     }, { quoted: m });
