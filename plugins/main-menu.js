@@ -90,16 +90,10 @@ ${commandsForTag.map(menu =>
 `;
 
     // no tocar 
-    const imageUrls = [
-      'https://files.catbox.moe/3k9jom.jpg',
-      'https://files.catbox.moe/apuobz.jpg',
-      'https://files.catbox.moe/yqxg6l.jpg'
-    ];
-    let selectedImage = imageUrls[Math.floor(Math.random() * imageUrls.length)];
 
     await m.react('💗');
     await conn.sendMessage(m.chat, { 
-      image: { url: selectedImage }, 
+      image: { url: global.img }, 
       caption: menuText.trim(), 
       mentions: [m.sender] 
     }, { quoted: m });
