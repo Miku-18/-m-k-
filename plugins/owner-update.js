@@ -38,7 +38,7 @@ let handler = async (m, { conn, args }) => {
 };
 
 handler.help = ['update', 'actualizar'];
-handler.command /^(update|actualizar)$/i
+handler.command = ['update', 'actualizar']
 handler.tags = ['owner']
 handler.rowner = true;
 
